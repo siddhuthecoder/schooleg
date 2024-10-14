@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-const StudentProgress = () => {
+const StudentSchoolBus = () => {
   const {admission} = useParams()
   return (
     <div className="container mx-auto p-4">
@@ -12,9 +12,10 @@ const StudentProgress = () => {
         </h1>
         <div className="flex space-x-8 text-gray-600">
           <a href={`/studentdashboard/attendance/${admission}`} className="hover:text-blue-600">Attendance</a>
-          <a href={`/studentdashboard/progress/${admission}`} className="text-blue-600 border-b-2 border-blue-600">Progress</a>
+          <a href={`/studentdashboard/progress/${admission}`} className="hover:text-blue-600">Progress</a>
           <a href={`/studentdashboard/feesHistory/${admission}`} className="hover:text-blue-600">Fees History</a>
-          <a href={`/studentdashboard/bus/${admission}`} className="hover:text-blue-600">School Bus</a>
+          <a href={`/studentdashboard/bus/${admission}`} className="text-blue-600 border-b-2 border-blue-600">School Bus</a>
+          
         </div>
       </div>
 
@@ -146,6 +147,6 @@ const StudentProgress = () => {
   );
 };
 
-export default StudentProgress;
+export default StudentSchoolBus;
 
 

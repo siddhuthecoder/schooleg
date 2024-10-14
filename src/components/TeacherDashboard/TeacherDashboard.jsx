@@ -4,10 +4,13 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import { useParams } from 'react-router-dom';
+
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const TeacherAttendance = () => {
+  const {teacher} = useParams()
   // Data for the attendance line chart
   const attendanceData = {
     labels: ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'], // Months
@@ -72,8 +75,8 @@ const TeacherAttendance = () => {
           Teacher Name / <span className="font-normal">Teacher Information</span>
         </h1>
         <div className="flex space-x-8 text-gray-600">
-        <a href="/teachertimetable" className="hover:text-blue-500">Time Table</a>
-        <a href="/teacherdashboard" className="text-blue-600 border-b-2 border-blue-600">Attendance</a>
+        <a href={`/teachertimetable/${teacher}`} className="hover:text-blue-500">Time Table</a>
+        <a href={`/teacherdashboard/${teacher}`} className="text-blue-600 border-b-2 border-blue-600">Attendance</a>
         </div>
       </div>
 

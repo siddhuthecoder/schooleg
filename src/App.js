@@ -27,6 +27,11 @@ import SelectedActivity from './pages/SelectedActivity';
 import TeacherDashboards from './pages/TeacherDashboards';
 import TeacherTimeTables from './pages/TeacherTimeTables';
 
+import StudentAttendancePage from './pages/student_dashboard/Attendance';
+import StudentProgessPage from './pages/student_dashboard/Progess';
+import StudentFeesHistoryPage from './pages/student_dashboard/FeesHistory';
+import StudentBusPage from './pages/student_dashboard/Bus';
+
 import MainPage from './LandingPageComponents/MainPage';
 import Phone from './auth/Phone';
 import Login from './auth/Login';
@@ -48,14 +53,14 @@ function App() {
       <Route path="/class" element={<Class />} />
       <Route path="/notice" element={<Notice />} />
       <Route path="/reminder" element={<Reminder />} />
-      <Route path="/student" element={<Student />} />
+      <Route path="/student/:class" element={<Student />} />
       <Route path="/teacher" element={<Teacher />} />
       <Route path="/parent" element={<Parents />} />
       <Route path="/driver" element={<Driver />} />
       <Route path="/helper" element={<Helper />} />
       <Route path="/circular" element={<Circular />} />
-      <Route path="/result" element={<Result />} />
-      <Route path="/time-table" element={<TimeTable />} />
+      <Route path="/result/:class" element={<Result />} />
+      <Route path="/time-table/:class" element={<TimeTable />} />
       <Route path="/activity" element={<Activity />} />
       <Route path="/leave" element={<Leave />} />
       <Route path="/holiday" element={<Holiday />} />
@@ -67,15 +72,38 @@ function App() {
       <Route path="/banner" element={<Banners />} />
       <Route path="/selected-activity" element={<SelectedActivity />} />
       <Route path="/vehicles" element={<Vehicles />} />
-      <Route path="/studentdashboard" element={<StudentDashboard />} />
-      <Route path="/teacherdashboard" element={<TeacherDashboards />} />
-      <Route path="/teachertimetable" element={<TeacherTimeTables />} />
+
+      <Route path="/studentdashboard/attendance/:admission" element={<StudentAttendancePage />} />
+      <Route path="/studentdashboard/feesHistory/:admission" element={<StudentFeesHistoryPage />} />
+      <Route path="/studentdashboard/progress/:admission" element={<StudentProgessPage />} />
+      <Route path="/studentdashboard/bus/:admission" element={<StudentBusPage />} />
+
+      <Route path="/teacherdashboard/:teacher" element={<TeacherDashboards />} />
+      <Route path="/teachertimetable/:teacher" element={<TeacherTimeTables />} />
+    </>
+  );
+
+  // Define routes for "School" role
+  const schoolRoutes = (
+    <>
+      {/* <Route path="/school/dashboard" element={<SchoolDashboard />} />
+      <Route path="/school/reports" element={<SchoolReports />} /> */}
+      {/* Add more school-specific routes here */}
     </>
   );
 
   const renderRoutes = () => {
     switch (role) {
       case "School":
+        return (
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/phone" element={<Phone />} />
+            <Route path="/login" element={<Login />} />
+            {commonRoutes}
+            {schoolRoutes} {/* Add the school-specific routes */}
+          </Routes>
+        );
       case "Parent":
       case "Teacher":
       case "Driver":
@@ -107,6 +135,7 @@ function App() {
     </div>
   );
 }
+
 
 
 export default App;

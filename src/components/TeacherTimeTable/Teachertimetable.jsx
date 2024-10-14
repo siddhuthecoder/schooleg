@@ -1,6 +1,8 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 const TeacherTimeTable = () => {
+  const {teacher} = useParams()
   return (
     <div className="container mx-auto p-4">
       {/* Header */}
@@ -9,8 +11,8 @@ const TeacherTimeTable = () => {
           Teacher Name / <span className="font-normal">Teacher Information</span>
         </h1>
         <div className="flex space-x-8 text-gray-600">
-          <a href="/teachertimetable" className="text-blue-600 border-b-2 border-blue-600">Time Table</a>
-          <a href="/teacherdashboard" className="hover:text-blue-600">Attendance</a>
+          <a href={`/teachertimetable/${teacher}`}  className="text-blue-600 border-b-2 border-blue-600">Time Table</a>
+          <a  href={`/teacherdashboard/${teacher}`} className="hover:text-blue-600">Attendance</a>
         </div>
       </div>
 

@@ -1,7 +1,11 @@
 import React from 'react';
 import { FaPen, FaTrash, FaPaperclip } from 'react-icons/fa';
+import { FaInfo } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
+
 
 const StudentTable = () => {
+  const navigate = useNavigate()
   const data = [
     {
       photo: "/Ellipse 112.png", // Replace with actual photo URLs
@@ -121,6 +125,9 @@ const StudentTable = () => {
                 <td className="py-2 px-3 text-black text-center">{item.address}</td>
                 <td className="py-2 px-3">
                   <div className="flex justify-center space-x-2">
+                    <button className="text-white hover:text-blue-700 rounded-md bg-blue-500 p-1"   onClick={() => navigate(`/studentdashboard/attendance/${item.admissionNo}`)}>
+                      <FaInfo />
+                    </button>
                     <button className="text-white hover:text-blue-700 rounded-md bg-blue-500 p-1">
                       <FaPaperclip />
                     </button>
