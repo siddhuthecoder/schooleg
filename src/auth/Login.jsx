@@ -44,7 +44,18 @@ const Login = () => {
       // Handle successful login (e.g., navigate to a dashboard)
       console.log('Login successful:', response.data);
       dispatch(signInSuccess(response.data));
-      navigate('/class'); // Redirect to a dashboard or another page after successful login
+      if(role==="Teacher"){
+        navigate("/teacher")
+      }
+      else if (role ==="School"){
+        navigate("/class")
+      }
+      else if (role === "Parent"){
+        navigate("/parent")
+      }
+      else if (role ===" Driver"){
+        navigate("/driver")
+      }
     } catch (err) {
       console.error('Login failed:', err);
       setError('Login failed. Please check your credentials.');
