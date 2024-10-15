@@ -19,7 +19,7 @@ const Teacher = () => {
             <TopHeader />
             <hr />
             <TeacherHeader/>
-            <TeacherTable/>
+            {/* <TeacherTable/> */}
           </div>
         </div>
       </div>

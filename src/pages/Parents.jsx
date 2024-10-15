@@ -3,6 +3,7 @@ import ParentsSidebar from '../components/Parents/ParentsSidebar';
 import TopHeader from '../components/TopHeader';
 import ParentsHeader from '../components/Parents/ParentsHeader';
 import ParentTable from '../components/Parents/ParentsTable';
+import ParentsManagement from '../components/Parents/ParentsManagement';
 
 const Parents = () => {
   return (
@@ -18,8 +19,7 @@ const Parents = () => {
           <div className="p-2 lg:p-2"> {/* Reduced padding to minimize gaps */}
             <TopHeader />
             <hr />
-            <ParentsHeader/>
-            <ParentTable/>
+            <ParentsManagement/>
           </div>
         </div>
       </div>

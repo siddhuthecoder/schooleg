@@ -1,0 +1,19 @@
+
+POST https://schooleg.com/Schooleg/check-phone-status
+Content-Type: application/json
+
+{
+  "phone": 9934906211
+}
+
+
+###
+# Login
+POST https://schooleg.com/Schooleg/login
+Content-Type: application/json
+
+{
+  "role": "Driver",
+  "phone": "9934906211",
+  "password": "123456"
+}

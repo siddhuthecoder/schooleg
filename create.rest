@@ -1,0 +1,227 @@
+POST https://schooleg.com/Schooleg/notice
+Content-Type: application/json
+
+{
+  "class_id": "class123",
+  "period_id": "period456",
+  "school_id": "school789",
+  "branch_id": "branch321",
+  "student_id": ["student123", "student456"],
+  "notice": "School will be closed tomorrow",
+  "attachments": [{"fileName": "notice.pdf", "originalName": "School Notice", "url": "http://schooleg.com/notice.pdf"}]
+}
+
+### Create Homework
+POST https://schooleg.com/Schooleg/homework
+Content-Type: application/json
+
+{
+  "class_id": "class123",
+  "period_id": "period456",
+  "school_id": "school789",
+  "branch_id": "branch321",
+  "student_id": ["student123", "student456"],
+  "homework": "Complete the exercises",
+  "attachments": [{"fileName": "assignment.pdf", "url": "http://schooleg.com/assignment.pdf"}]
+}
+
+### Create Reminder
+POST https://schooleg.com/Schooleg/reminder
+Content-Type: application/json
+
+{
+  "class_id": "class123",
+  "period_id": "period456",
+  "school_id": "school789",
+  "branch_id": "branch321",
+  "student_id": ["student123", "student456"],
+  "reminder": "Parent-teacher meeting tomorrow",
+  "attachments": [{"fileName": "reminder.pdf", "originalName": "Meeting Reminder", "url": "http://schooleg.com/reminder.pdf"}]
+}
+### Create Parent
+POST https://schooleg.com/Schooleg/parents
+Content-Type: multipart/form-data
+
+Data={
+    "name": "Virat",
+    "phone": "9934906211",
+    "password": "123456",
+    "address": {
+        "name": "Virat's Address",
+        "state": "Haryana",
+        "district": "Rajiv Chowk",
+        "pincode": "841301"
+    },
+    "school_id": ["66c7031c1ffa12d6e8b79171"]
+}
+
+photo=@path/to/photo.jpg  # Replace with actual photo path
+
+
+###
+POST https://schooleg.com/Schooleg/parents
+Content-Type: application/json
+
+{
+  "name": "Virat",
+  "phone": "9934906211",
+  "password": "123456",
+  "state": "Haryana",
+  "pincode": "841301",
+  "district": "",
+  "address": {
+    "location": "Rajiv Chowk"
+  },
+  "school_id": ["66c7031c1ffa12d6e8b79171"]
+}
+
+### Create Student Class Attendance
+POST https://schooleg.com/Schooleg/student-class-attendance
+Content-Type: application/json
+
+{
+  "school_id": "school789",
+  "branch_id": "branch321",
+  "class_id": "class123",
+  "period_id": "period456",
+  "presentStudent_id": ["student123", "student456"],
+  "absentStudent_id": ["student789"]
+}
+
+### Create Teacher Attendance
+POST https://schooleg.com/Schooleg/teacher-attendance
+Content-Type: application/json
+
+{
+  "school_id": "school789",
+  "branch_id": "branch321",
+  "presentTeacher": ["teacher123", "teacher456"],
+  "absentTeacher": ["teacher789"],
+  "halfDayTeacher": ["teacher101"]
+}
+
+### Create Complaint
+POST https://schooleg.com/Schooleg/complaint
+Content-Type: application/json
+
+{
+  "parent_id": "66d56c0626eb67d569b96195",
+  "school_id": "66fac9603e512ca16feb7a6d",
+  "branch_id": "6700d964634d07325a981f5b",
+  "subject": "Issue with class schedule",
+  "description": "There is a conflict in the class timings",
+  "photos": ["http://schooleg.com/photo1.jpg", "http://schooleg.com/photo2.jpg"],
+  "studentIds": ["66fad27f01e0f667614003c2"]
+}
+
+### Create Event
+POST https://schooleg.com/Schooleg/event
+Content-Type: application/json
+
+{
+  "name": "Annual Sports Day",
+  "timing": { "date": "2024-10-12", "time": "10:00 AM" },
+  "venue": "Main Field",
+  "for": "Both",
+  "prize": { "first": "Gold Medal", "second": "Silver Medal" },
+  "totalValue": 5000,
+  "enrollmentFee": 50,
+  "lastDate": "2024-10-01",
+  "student_id": "603c9d9e3c8f1c001f4a7ef8",
+  "isActive": true,
+  "city": "New York",
+  "state": "NY"
+}
+
+### Create Holiday
+POST https://schooleg.com/Schooleg/holiday
+Content-Type: application/json
+
+{
+  "school_id": "603c9d9e3c8f1c001f4a7ef9",
+  "branch_id": "603c9d9e3c8f1c001f4a7efa",
+  "months": {
+    "January": [{ "date": "2024-01-01", "name": "New Year Holiday" }],
+    "December": [{ "date": "2024-12-25", "name": "Christmas Holiday" }]
+  }
+}
+
+### Create Leave Request for Student
+POST https://schooleg.com/Schooleg/leave-request-student
+Content-Type: application/json
+
+{
+  "school_id": "66fac9603e512ca16feb7a6d",
+  "branch_id": "6700d964634d07325a981f5b",
+  "student_id": "66fad27f01e0f667614003c2",
+  "dateRange": ["2024-10-10", "2024-10-12"],
+  "reason": "Family trip",
+  "approved": false
+}
+
+### Create Leave Request for Teacher
+POST https://schooleg.com/Schooleg/leave-request-teacher
+Content-Type: application/json
+
+{
+  "school_id": "66fac9603e512ca16feb7a6d",
+  "branch_id": "6700d964634d07325a981f5b",
+  "teacher_id": "66f5432d9db640309d717868",
+  "dateRange": ["2024-10-10", "2024-10-12"],
+  "reason": "Family trip",
+  "approved": false
+}
+
+### Create Career Counseling Request
+POST https://schooleg.com/Schooleg/career-counseling
+Content-Type: application/json
+
+{
+  "student_id": "66fad27f01e0f667614003c2",
+  "parentId": "66d56c0626eb67d569b96195",
+  "contactNo": "1234567890",
+  "preferredDateTime": {
+    "date": "2024-10-15",
+    "time": "14:00"
+  },
+  "academicIntent": {
+    "favoriteSubject": "Mathematics",
+    "challengingSubject": "Physics"
+  },
+  "careerAspiration": {
+    "dreamJob": "Engineer",
+    "careerFields": "Technology"
+  },
+  "skillsAndActivities": {
+    "goodSkills": "Problem Solving",
+    "hobbies": "Reading"
+  },
+  "payment": 100,
+  "transactionId": "txn123456789",
+  "completed": false
+}
+
+### Create Request for Books
+POST https://schooleg.com/Schooleg/request
+Content-Type: application/json
+
+{
+  "school_id": "66fac9603e512ca16feb7a6d",
+  "branch_id": "6700d964634d07325a981f5b",
+  "requestFor": "Books",
+  "quantity": 10,
+  "attachment": "http://schooleg.com/attachments/bookRequest.pdf",
+  "provided": false
+}
+
+### Create News
+POST https://schooleg.com/Schooleg/news
+Content-Type: application/json
+
+{
+  "photos": ["http://schooleg.com/news/photo1.jpg", "http://schooleg.com/news/photo2.jpg"],
+  "headline": "New Sports Facility Inaugurated",
+  "content": "The new sports facility was inaugurated by the principal.",
+  "date": "2024-10-10",
+  "sourceLinks": ["http://news-source.com/article/123", "http://news-source.com/article/456"]
+}
