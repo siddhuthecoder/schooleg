@@ -77,8 +77,7 @@ const ParentTable = ({ data, handleEdit, handleDelete }) => {
       {isEditModalOpen && (
         <EditParentModal
           isOpen={isEditModalOpen}
-          onClose={() => setEditModalOpen(false)} // Close the modal
-          onSubmit={handleSubmitEdit} // Pass the updated data back to the parent
+          onClose={() => setEditModalOpen(false)} // Close the modal // Pass the updated data back to the parent
           initialData={selectedParent} // Pass the selected parent data to the modal for pre-filling
         />
       )}

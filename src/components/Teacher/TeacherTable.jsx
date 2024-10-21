@@ -5,6 +5,25 @@ import { useNavigate } from 'react-router-dom';
 const TeacherTable = ({ teachers }) => {
   const navigate = useNavigate();
 
+  const handleDelete = async (id) => {
+    const confirmation = window.confirm("Are you sure you want to delete this teacher?");
+    if (!confirmation) return;
+
+    try {
+      const response = await fetch(`https://schooleg.com/Schooleg/delete-teacher/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete the teacher');
+      }
+     window.location.reload()
+    } catch (error) {
+      console.error('Error deleting the teacher:', error);
+      // Handle error (e.g., show a message to the user)
+    }
+  };
+
   return (
     <div className="container mx-auto p-4">
       <table className="min-w-full bg-white rounded-lg">
@@ -53,7 +72,10 @@ const TeacherTable = ({ teachers }) => {
                     <button className="text-white hover:text-blue-700 rounded-md bg-blue-500 p-1">
                       <FaPen />
                     </button>
-                    <button className="text-white hover:text-red-700 rounded-md bg-red-500 p-1">
+                    <button
+                      className="text-white hover:text-red-700 rounded-md bg-red-500 p-1"
+                      onClick={() => handleDelete(item._id)} // Pass the teacher's ID here
+                    >
                       <FaTrash />
                     </button>
                   </div>

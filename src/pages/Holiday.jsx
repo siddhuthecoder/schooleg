@@ -19,7 +19,7 @@ const Holiday= () => {
             <TopHeader />
             <hr />
               <HolidayHeader/>
-              <HolidayTable/>
+              {/* <HolidayTable/> */}
           </div>
         </div>
       </div>

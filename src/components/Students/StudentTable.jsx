@@ -1,93 +1,29 @@
 import React from 'react';
-import { FaPen, FaTrash, FaPaperclip } from 'react-icons/fa';
-import { FaInfo } from "react-icons/fa";
+import { FaPen, FaTrash, FaPaperclip, FaInfo } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
+const StudentTable = ({ data=[] }) => {
+  const navigate = useNavigate();
+  console.log({data})
+  const handleDelete = async (id) => {
+    const confirmation = window.confirm("Are you sure you want to delete this student?");
+    if (!confirmation) return;
 
-const StudentTable = () => {
-  const navigate = useNavigate()
-  const data = [
-    {
-      photo: "/Ellipse 112.png", // Replace with actual photo URLs
-      name: "Ravi Dubey",
-      admissionNo: "20EE093",
-      className: "9th-C",
-      guardian: "Mr Manish Dubey",
-      guardianContact: "9852365896",
-      dob: "25/08/2024",
-      address: "Ramgarh, Sector 50, Gurgaon, Haryana",
-      dobFull: "05/02/2008"
-    },
-    {
-        photo: "/Ellipse 112 (1).png", // Replace with actual photo URLs
-        name: "Ravi Dubey",
-        admissionNo: "20EE093",
-        className: "9th-C",
-        guardian: "Mr Manish Dubey",
-        guardianContact: "9852365896",
-        dob: "25/08/2024",
-        address: "Ramgarh, Sector 50, Gurgaon, Haryana",
-        dobFull: "05/02/2008"
-      },
-      {
-        photo: "/Ellipse 112 (2).png", // Replace with actual photo URLs
-        name: "Ravi Dubey",
-        admissionNo: "20EE093",
-        className: "9th-C",
-        guardian: "Mr Manish Dubey",
-        guardianContact: "9852365896",
-        dob: "25/08/2024",
-        address: "Ramgarh, Sector 50, Gurgaon, Haryana",
-        dobFull: "05/02/2008"
-      },
-      {
-        photo: "/Ellipse 112 (3).png", // Replace with actual photo URLs
-        name: "Ravi Dubey",
-        admissionNo: "20EE093",
-        className: "9th-C",
-        guardian: "Mr Manish Dubey",
-        guardianContact: "9852365896",
-        dob: "25/08/2024",
-        address: "Ramgarh, Sector 50, Gurgaon, Haryana",
-        dobFull: "05/02/2008"
-      },
-      {
-        photo: "/Ellipse 112 (4).png", // Replace with actual photo URLs
-        name: "Ravi Dubey",
-        admissionNo: "20EE093",
-        className: "9th-C",
-        guardian: "Mr Manish Dubey",
-        guardianContact: "9852365896",
-        dob: "25/08/2024",
-        address: "Ramgarh, Sector 50, Gurgaon, Haryana",
-        dobFull: "05/02/2008"
-      },
-      {
-        photo: "/Ellipse 112 (5).png", // Replace with actual photo URLs
-        name: "Ravi Dubey",
-        admissionNo: "20EE093",
-        className: "9th-C",
-        guardian: "Mr Manish Dubey",
-        guardianContact: "9852365896",
-        dob: "25/08/2024",
-        address: "Ramgarh, Sector 50, Gurgaon, Haryana",
-        dobFull: "05/02/2008"
-      },
-      {
-        photo: "/Ellipse 112 (6).png", // Replace with actual photo URLs
-        name: "Ravi Dubey",
-        admissionNo: "20EE093",
-        className: "9th-C",
-        guardian: "Mr Manish Dubey",
-        guardianContact: "9852365896",
-        dob: "25/08/2024",
-        address: "Ramgarh, Sector 50, Gurgaon, Haryana",
-        dobFull: "05/02/2008"
-      },
-    // Duplicate objects to simulate the image
-    // Add more data if needed...
-  ];
+    try {
+      const response = await fetch(`https://schooleg.com/Schooleg/delete-student/${id}`, {
+        method: 'DELETE',
+      });
 
+      if (!response.ok) {
+        throw new Error('Failed to delete the student');
+      }
+
+      window.location.reload()
+    } catch (error) {
+      console.error('Error deleting the student:', error);
+      // Handle error (e.g., show a message to the user)
+    }
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -109,23 +45,25 @@ const StudentTable = () => {
             <React.Fragment key={index}>
               <tr className="border-t rounded-lg">
                 <td className="py-2 px-3 text-center">
-                  <img src={item.photo} alt={item.name} className="w-10 h-10 rounded-full mx-auto" />
+                  <img src={item.Photo} alt={item.name} className="w-10 h-10 rounded-full mx-auto" />
                 </td>
+                <td className="py-2 px-3 text-black text-center">{item.name}</td>
                 <td className="py-2 px-3 text-black text-center">
-                  {item.name}
-                  <div className="text-sm text-gray-500">{item.dobFull}</div>
+                  {item.admissionNo}
+                  <div className="text-sm text-gray-500">{new Date(item.admissionDate).toLocaleDateString()}</div>
                 </td>
-                <td className="py-2 px-3 text-black text-center">{item.admissionNo}</td>
-                <td className="py-2 px-3 text-blue-500 font-semibold text-center">{item.className}</td>
+                <td className="py-2 px-3 text-blue-500 font-semibold text-center">{item.class_id}</td>
                 <td className="py-2 px-3 text-center">
-                  {item.guardian}
-                  <div className="text-sm text-blue-500">{item.guardianContact}</div>
+                  {item.guardian || 'N/A'}
+                  <div className="text-sm text-blue-500">{item.guardianContact || 'N/A'}</div>
                 </td>
-                <td className="py-2 px-3 text-black text-center">{item.dob}</td>
-                <td className="py-2 px-3 text-black text-center">{item.address}</td>
+                <td className="py-2 px-3 text-black text-center">{new Date(item.DOB).toLocaleDateString()}</td>
+                <td className="py-2 px-3 text-black text-center">
+                  {`${item.address.name}, ${item.address.district}, ${item.address.state}, ${item.address.pincode}`}
+                </td>
                 <td className="py-2 px-3">
                   <div className="flex justify-center space-x-2">
-                    <button className="text-white hover:text-blue-700 rounded-md bg-blue-500 p-1"   onClick={() => navigate(`/studentdashboard/attendance/${item.admissionNo}`)}>
+                    <button className="text-white hover:text-blue-700 rounded-md bg-blue-500 p-1" onClick={() => navigate(`/studentdashboard/attendance/${item.admissionNo}`)}>
                       <FaInfo />
                     </button>
                     <button className="text-white hover:text-blue-700 rounded-md bg-blue-500 p-1">
@@ -134,7 +72,10 @@ const StudentTable = () => {
                     <button className="text-white hover:text-blue-700 rounded-md bg-blue-500 p-1">
                       <FaPen />
                     </button>
-                    <button className="text-white hover:text-red-700 rounded-md bg-red-500 p-1">
+                    <button
+                      className="text-white hover:text-red-700 rounded-md bg-red-500 p-1"
+                      onClick={() => handleDelete(item._id)} // Pass the student's ID here
+                    >
                       <FaTrash />
                     </button>
                   </div>

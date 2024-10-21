@@ -1,66 +1,26 @@
 import React from 'react';
 import { FaPen, FaTrash } from 'react-icons/fa';
 
-const HelperTable = () => {
-  const data = [
-    {
-      name: "Ravi Dubey",
-      phone: "9636652585",
-      route: ["Route1 (HR45VBN78)", "Route2 (HR45VEN78)"], // Route separated into an array
-      license: "HR78HUJTH",
-      salary: "Rs 30,000",
-      address: "Ramgarh, Sector 50, Gurgaon, Haryana"
-    },
-    {
-        name: "Ravi Dubey",
-        phone: "9636652585",
-        route: ["Route1 (HR45VBN78)", "Route2 (HR45VEN78)"], // Route separated into an array
-        license: "HR78HUJTH",
-        salary: "Rs 30,000",
-        address: "Ramgarh, Sector 50, Gurgaon, Haryana"
-      },
-      {
-        name: "Ravi Dubey",
-        phone: "9636652585",
-        route: ["Route1 (HR45VBN78)", "Route2 (HR45VEN78)"], // Route separated into an array
-        license: "HR78HUJTH",
-        salary: "Rs 30,000",
-        address: "Ramgarh, Sector 50, Gurgaon, Haryana"
-      },
-      {
-        name: "Ravi Dubey",
-        phone: "9636652585",
-        route: ["Route1 (HR45VBN78)", "Route2 (HR45VEN78)"], // Route separated into an array
-        license: "HR78HUJTH",
-        salary: "Rs 30,000",
-        address: "Ramgarh, Sector 50, Gurgaon, Haryana"
-      },
-      {
-        name: "Ravi Dubey",
-        phone: "9636652585",
-        route: ["Route1 (HR45VBN78)", "Route2 (HR45VEN78)"], // Route separated into an array
-        license: "HR78HUJTH",
-        salary: "Rs 30,000",
-        address: "Ramgarh, Sector 50, Gurgaon, Haryana"
-      },
-      {
-        name: "Ravi Dubey",
-        phone: "9636652585",
-        route: ["Route1 (HR45VBN78)", "Route2 (HR45VEN78)"], // Route separated into an array
-        license: "HR78HUJTH",
-        salary: "Rs 30,000",
-        address: "Ramgarh, Sector 50, Gurgaon, Haryana"
-      },
-      {
-        name: "Ravi Dubey",
-        phone: "9636652585",
-        route: ["Route1 (HR45VBN78)", "Route2 (HR45VEN78)"], // Route separated into an array
-        license: "HR78HUJTH",
-        salary: "Rs 30,000",
-        address: "Ramgarh, Sector 50, Gurgaon, Haryana"
-      },
-    // Add more data as necessary...
-  ];
+const HelperTable = ({ helpers }) => {
+  const handleDelete = async (id) => {
+    const confirmation = window.confirm("Are you sure you want to delete this helper?");
+    if (!confirmation) return;
+
+    try {
+      const response = await fetch(`https://schooleg.com/Schooleg/delete-helper/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete the helper');
+      }
+     window.location.reload()
+      
+    } catch (error) {
+      console.error('Error deleting the helper:', error);
+      // Handle error (e.g., show a message to the user)
+    }
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -77,28 +37,31 @@ const HelperTable = () => {
           </tr>
         </thead>
         <tbody className="font-lato">
-          {data.map((item, index) => (
+          {helpers?.map((helper, index) => (
             <React.Fragment key={index}>
               <tr className="border-t rounded-lg">
-                <td className="py-2 px-3 text-black">{item.name}</td>
-                <td className="py-2 px-3 text-black">{item.phone}</td>
+                <td className="py-2 px-3 text-black">{helper.name}</td>
+                <td className="py-2 px-3 text-black">{helper.phone}</td>
                 <td className="py-2 px-3 text-blue-500">
-                  {item.route.map((route, i) => (
+                  {helper?.route?.map((route, i) => (
                     <div key={i}>
                       {route}
                       {i === 0 && <br />} {/* Adds a break between Route 1 and Route 2 */}
                     </div>
                   ))}
                 </td>
-                <td className="py-2 px-3 text-blue-500">{item.license}</td>
-                <td className="py-2 px-3 text-black">{item.salary}</td>
-                <td className="py-2 px-3 text-black">{item.address}</td>
+                <td className="py-2 px-3 text-blue-500">{helper.aadharNo}</td>
+                <td className="py-2 px-3 text-black">Rs {helper.salary}</td>
+                <td className="py-2 px-3 text-black">{helper.address}</td>
                 <td className="py-2 px-3">
                   <div className="flex space-x-2 justify-center">
                     <button className="text-white hover:text-blue-700 rounded-md bg-blue-500 p-1">
                       <FaPen />
                     </button>
-                    <button className="text-white hover:text-red-700 rounded-md bg-red-500 p-1">
+                    <button
+                      className="text-white hover:text-red-700 rounded-md bg-red-500 p-1"
+                      onClick={() => handleDelete(helper._id)} // Pass the helper's ID here
+                    >
                       <FaTrash />
                     </button>
                   </div>

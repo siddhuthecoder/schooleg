@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import TeacherTable from './TeacherTable'; // Adjust the path as necessary
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import TeacherTable from "./TeacherTable"; // Adjust the path as necessary
+import axios from "axios";
+import AddTeacherModal from "./AddTeacherModal";
 
 const TeacherHeader = () => {
   const [teachers, setTeachers] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchTeachers = async () => {
-   
       try {
-        const response = await axios.get('https://schooleg.com/Schooleg/teachers');
-       
+        const response = await axios.get(
+          "https://schooleg.com/Schooleg/teachers"
+        );
+
         // console.log(JSON.stringify(response.data))
         setTeachers(response.data);
       } catch (error) {
@@ -29,7 +32,8 @@ const TeacherHeader = () => {
         <div className="flex border border-gray-300 rounded-lg p-0 text-sm">
           {/* Total Notice */}
           <div className="flex items-center px-3 py-2 bg-blue-50 text-blue-700 border-gray-300 rounded-md">
-            Total Teachers <span className="ml-2 font-bold">{teachers.length}</span>
+            Total Teachers{" "}
+            <span className="ml-2 font-bold">{teachers.length}</span>
           </div>
           {/* You can replace static counts with dynamic ones based on your data */}
           <div className="flex items-center px-3 py-2 text-green-600">
@@ -47,7 +51,11 @@ const TeacherHeader = () => {
         <div className="flex items-center space-x-4">
           {/* Search Input */}
           <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
-            <input type="text" placeholder="Search" className="p-2 outline-none" />
+            <input
+              type="text"
+              placeholder="Search"
+              className="p-2 outline-none"
+            />
           </div>
 
           {/* Date Picker */}
@@ -57,7 +65,10 @@ const TeacherHeader = () => {
           </select>
 
           {/* Add Class Button */}
-          <button className="bg-blue-600 text-white rounded-lg flex items-center px-4 py-2">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="bg-blue-600 text-white rounded-lg flex items-center px-4 py-2"
+          >
             Add Teachers
           </button>
         </div>
@@ -65,6 +76,7 @@ const TeacherHeader = () => {
 
       {/* Teacher Table */}
       <TeacherTable teachers={teachers} />
+      <AddTeacherModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 };

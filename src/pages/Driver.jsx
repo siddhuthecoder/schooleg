@@ -19,7 +19,7 @@ const Driver = () => {
             <TopHeader />
             <hr />
             <DriverHeader/>
-            <DriverTable/>
+            {/* <DriverTable/> */}
           </div>
         </div>
       </div>

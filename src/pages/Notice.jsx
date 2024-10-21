@@ -19,7 +19,7 @@ const Notice = () => {
             <TopHeader />
             <hr />
             <NoticeHeader/>
-            <NoticeTable/>
+            {/* <NoticeTable/> */}
           </div>
         </div>
       </div>

@@ -15,7 +15,7 @@ const DriverSidebar = () => {
       {/* Navigation Icons */}
       <div className="flex-grow space-y-2">
         <a href="/student" className="hover:text-blue-500"><IconButton icon={<FaUserGraduate />} /></a>
-        <a href="/" className="hover:text-blue-500"><IconButton icon={<MdOutlineClass />} /></a>
+        <a href="/class" className="hover:text-blue-500"><IconButton icon={<MdOutlineClass />} /></a>
         <a href="/teacher" className="hover:text-blue-500"><IconButton icon={<FaChalkboardTeacher />} /></a>
         <a href="/parent" className="hover:text-blue-500"><IconButton icon={<FaUserFriends />} /></a>
         <a href="/driver" className="text-blue-500"><IconButton icon={<GrUserPolice />} /></a>

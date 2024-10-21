@@ -19,7 +19,7 @@ const Class = () => {
             <TopHeader />
             <hr />
             <MiddleHeader />
-            <ClassTable />
+            {/* <ClassTable /> */}
           </div>
         </div>
       </div>

@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const EditParentModal = ({ isOpen, onClose, onSubmit, initialData }) => {
+const EditParentModal = ({ isOpen, onClose, initialData }) => {
+  const baseURL = 'https://schooleg.com/Schooleg';
   const [parentData, setParentData] = useState({
     name: '',
     phone: '',
     email: '',
     address: { name: '', state: '', district: '', pincode: '' },
+    password: '', // Add password field
+    school_id: ['66c7031c1ffa12d6e8b79171'],
   });
 
   // Populate form fields with the selected parent’s data when editing
@@ -30,9 +34,39 @@ const EditParentModal = ({ isOpen, onClose, onSubmit, initialData }) => {
   };
 
   // Handle the form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(parentData); // Submit updated parent data
+    await editParent(parentData); // Call the edit function
+  };
+
+  // Function to edit the parent
+  const editParent = async (updatedParent) => {
+    try {
+      const formData = new FormData();
+      formData.append('Data', JSON.stringify({
+        name: updatedParent.name,
+        phone: updatedParent.phone,
+        email: updatedParent.email,
+        password: updatedParent.password, // Include password
+        address: {
+          name: updatedParent.address.name,
+          state: updatedParent.address.state,
+          district: updatedParent.address.district,
+          pincode: updatedParent.address.pincode,
+        },
+        school_id: updatedParent.school_id, // Include school_id
+      }));
+
+      await axios.put(`${baseURL}/update-parent/${updatedParent._id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      alert("Parent Updated Successfully");
+      window.location.reload(); // Reload the page after successful update
+    } catch (error) {
+      console.error('Error updating parent:', error);
+    }
   };
 
   if (!isOpen) return null;
@@ -72,6 +106,18 @@ const EditParentModal = ({ isOpen, onClose, onSubmit, initialData }) => {
               type="email"
               name="email"
               value={parentData.email}
+              onChange={handleChange}
+              className="w-full border border-gray-300 px-3 py-2 rounded"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700">Password:</label>
+            <input
+              type="password" // Change type to password
+              name="password"
+              value={parentData.password}
               onChange={handleChange}
               className="w-full border border-gray-300 px-3 py-2 rounded"
               required

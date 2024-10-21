@@ -1,59 +1,7 @@
 import React from "react";
-import { FaPen, FaTrash } from 'react-icons/fa'; // For Edit and Delete icons
+import { FaPen, FaTrash } from 'react-icons/fa';
 
-const HolidayTable = () => {
-  const leaveData = [
-    {
-      month: "August",
-      from: "15/08/2024",
-      to: "15/08/2024",
-      occasion: "For Independence Day"
-    },
-    {
-      month: "August",
-      from: "15/08/2024",
-      to: "15/08/2024",
-      occasion: "For Independence Day"
-    },
-    {
-      month: "August",
-      from: "15/08/2024",
-      to: "15/08/2024",
-      occasion: "For Independence Day"
-    },
-    {
-      month: "August",
-      from: "15/08/2024",
-      to: "15/08/2024",
-      occasion: "For Independence Day"
-    },
-    {
-      month: "August",
-      from: "15/08/2024",
-      to: "15/08/2024",
-      occasion: "For Independence Day"
-    },
-    {
-      month: "August",
-      from: "15/08/2024",
-      to: "15/08/2024",
-      occasion: "For Independence Day"
-    },
-    {
-      month: "August",
-      from: "15/08/2024",
-      to: "15/08/2024",
-      occasion: "For Independence Day"
-    },
-    {
-      month: "August",
-      from: "15/08/2024",
-      to: "15/08/2024",
-      occasion: "For Independence Day"
-    },
-    // Add more rows as needed...
-  ];
-
+const HolidayTable = ({ holidays }) => {
   return (
     <div className="container mx-auto p-4">
       <table className="min-w-full bg-white rounded-lg shadow-md">
@@ -67,12 +15,12 @@ const HolidayTable = () => {
           </tr>
         </thead>
         <tbody>
-          {leaveData.map((item, index) => (
+          {holidays.map((holiday, index) => (
             <tr key={index} className="border-t">
-              <td className="py-3 px-6 text-gray-800">{item.month}</td>
-              <td className="py-3 px-6 text-gray-800">{item.from}</td>
-              <td className="py-3 px-6 text-gray-800">{item.to}</td>
-              <td className="py-3 px-6 text-gray-800">{item.occasion}</td>
+              <td className="py-3 px-6 text-gray-800">{holiday.month}</td>
+              <td className="py-3 px-6 text-gray-800">{holiday.from}</td>
+              <td className="py-3 px-6 text-gray-800">{holiday.to}</td>
+              <td className="py-3 px-6 text-gray-800">{holiday.occasion}</td>
               <td className="py-3 px-6">
                 <div className="flex space-x-2 text-center">
                   <button className="text-blue-500 hover:text-white border border-blue-500 rounded-md p-1 hover:bg-blue-500">

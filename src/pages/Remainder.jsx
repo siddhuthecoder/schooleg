@@ -19,7 +19,7 @@ const Reminder = () => {
             <TopHeader />
             <hr />
             <RemainderHeader/>
-            <RemainderTable/>
+            {/* <RemainderTable/> */}
           </div>
         </div>
       </div>

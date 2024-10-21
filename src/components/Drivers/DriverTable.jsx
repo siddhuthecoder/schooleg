@@ -1,66 +1,26 @@
 import React from 'react';
 import { FaPen, FaTrash } from 'react-icons/fa';
 
-const DriverTable = () => {
-  const data = [
-    {
-      name: "Ravi Dubey",
-      phone: "9636652585",
-      route: ["Route1 (HR45VBN78)", "Route2 (HR45VEN78)"], // Route separated into an array
-      license: "HR78HUJTH",
-      salary: "Rs 30,000",
-      address: "Ramgarh, Sector 50, Gurgaon, Haryana"
-    },
-    {
-        name: "Ravi Dubey",
-        phone: "9636652585",
-        route: ["Route1 (HR45VBN78)", "Route2 (HR45VEN78)"], // Route separated into an array
-        license: "HR78HUJTH",
-        salary: "Rs 30,000",
-        address: "Ramgarh, Sector 50, Gurgaon, Haryana"
-      },
-      {
-        name: "Ravi Dubey",
-        phone: "9636652585",
-        route: ["Route1 (HR45VBN78)", "Route2 (HR45VEN78)"], // Route separated into an array
-        license: "HR78HUJTH",
-        salary: "Rs 30,000",
-        address: "Ramgarh, Sector 50, Gurgaon, Haryana"
-      },
-      {
-        name: "Ravi Dubey",
-        phone: "9636652585",
-        route: ["Route1 (HR45VBN78)", "Route2 (HR45VEN78)"], // Route separated into an array
-        license: "HR78HUJTH",
-        salary: "Rs 30,000",
-        address: "Ramgarh, Sector 50, Gurgaon, Haryana"
-      },
-      {
-        name: "Ravi Dubey",
-        phone: "9636652585",
-        route: ["Route1 (HR45VBN78)", "Route2 (HR45VEN78)"], // Route separated into an array
-        license: "HR78HUJTH",
-        salary: "Rs 30,000",
-        address: "Ramgarh, Sector 50, Gurgaon, Haryana"
-      },
-      {
-        name: "Ravi Dubey",
-        phone: "9636652585",
-        route: ["Route1 (HR45VBN78)", "Route2 (HR45VEN78)"], // Route separated into an array
-        license: "HR78HUJTH",
-        salary: "Rs 30,000",
-        address: "Ramgarh, Sector 50, Gurgaon, Haryana"
-      },
-      {
-        name: "Ravi Dubey",
-        phone: "9636652585",
-        route: ["Route1 (HR45VBN78)", "Route2 (HR45VEN78)"], // Route separated into an array
-        license: "HR78HUJTH",
-        salary: "Rs 30,000",
-        address: "Ramgarh, Sector 50, Gurgaon, Haryana"
-      },
-    // Add more data as necessary...
-  ];
+const DriverTable = ({ drivers }) => {
+  const handleDelete = async (id) => {
+    const confirmation = window.confirm("Are you sure you want to delete this driver?");
+    if (!confirmation) return;
+
+    try {
+      const response = await fetch(`https://schooleg.com/Schooleg/delete-driver/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete the driver');
+      }
+
+      window.location.reload() // Callback to update the UI after deletion
+    } catch (error) {
+      console.error('Error deleting the driver:', error);
+      // Handle error (e.g., show a message to the user)
+    }
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -77,28 +37,24 @@ const DriverTable = () => {
           </tr>
         </thead>
         <tbody className="font-lato">
-          {data.map((item, index) => (
+          {drivers.map((driver, index) => (
             <React.Fragment key={index}>
               <tr className="border-t rounded-lg">
-                <td className="py-2 px-3 text-black">{item.name}</td>
-                <td className="py-2 px-3 text-black">{item.phone}</td>
-                <td className="py-2 px-3 text-blue-500">
-                  {item.route.map((route, i) => (
-                    <div key={i}>
-                      {route}
-                      {i === 0 && <br />} {/* Adds a break between Route 1 and Route 2 */}
-                    </div>
-                  ))}
-                </td>
-                <td className="py-2 px-3 text-blue-500">{item.license}</td>
-                <td className="py-2 px-3 text-black">{item.salary}</td>
-                <td className="py-2 px-3 text-black">{item.address}</td>
+                <td className="py-2 px-3 text-black">{driver.name}</td>
+                <td className="py-2 px-3 text-black">{driver.phone}</td>
+                <td className="py-2 px-3 text-blue-500">{/* Route handling if needed */}</td>
+                <td className="py-2 px-3 text-blue-500">{driver.licenseNo}</td>
+                <td className="py-2 px-3 text-black">Rs {driver.salary}</td>
+                <td className="py-2 px-3 text-black">{driver.address}</td>
                 <td className="py-2 px-3">
                   <div className="flex space-x-2 justify-center">
                     <button className="text-white hover:text-blue-700 rounded-md bg-blue-500 p-1">
                       <FaPen />
                     </button>
-                    <button className="text-white hover:text-red-700 rounded-md bg-red-500 p-1">
+                    <button
+                      className="text-white hover:text-red-700 rounded-md bg-red-500 p-1"
+                      onClick={() => handleDelete(driver._id)} // Pass the driver's ID here
+                    >
                       <FaTrash />
                     </button>
                   </div>

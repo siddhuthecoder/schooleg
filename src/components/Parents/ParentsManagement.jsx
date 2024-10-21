@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'; // Import Axios
-import ParentsHeader from './ParentsHeader'; // Import ParentsHeader
-import ParentTable from './ParentsTable'; // Import ParentTable
+import axios from 'axios';
+import ParentsHeader from './ParentsHeader';
+import ParentTable from './ParentsTable';
+import AddParentModal from './AddParentModal'; // Assume the modal is reused for edit as well
 
 const ParentsManagement = () => {
-  const [data, setData] = useState([]); // State for storing parents' data
-  const [loading, setLoading] = useState(true); // State for loading
-  const [error, setError] = useState(null); // State for error handling
-
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [isEditMode, setIsEditMode] = useState(false); // For toggling edit mode
+  const [editingParent, setEditingParent] = useState(null); // Store the parent being edited
   const baseURL = 'https://schooleg.com/Schooleg';
 
   // Fetch all parent data from the API
@@ -30,43 +32,82 @@ const ParentsManagement = () => {
   const addParent = async (newParent) => {
     try {
       const formData = new FormData();
-      formData.append('name', newParent.name);
-      formData.append('phone', newParent.phone);
-      formData.append('password', newParent.password);
-      formData.append('address', JSON.stringify(newParent.address)); 
-      formData.append('school_id', JSON.stringify(newParent.school_id));
-      if (newParent.photo) {
-        formData.append('photo', newParent.photo); // Append the photo if available
-      }
-  
+      formData.append('Data', JSON.stringify({
+        name: newParent.name,
+        phone: newParent.phone,
+        password: newParent.password,
+        email: newParent.email,
+        address: {
+          name: newParent.address.name,
+          state: newParent.address.state,
+          district: newParent.address.district,
+          pincode: newParent.address.pincode,
+        },
+        school_id: newParent.school_id,
+      }));
+
       const response = await axios.post(`${baseURL}/parents`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-  
-      setData([...data, response.data]); // Update state with the new parent
+      alert("Parent Added Successfully");
+      window.location.reload();
     } catch (error) {
       console.error('Error adding parent:', error);
     }
   };
-  
+
+  // Function to edit a parent
+  const editParent = async (updatedParent) => {
+    try {
+      const formData = new FormData();
+      formData.append('Data', JSON.stringify({
+        name: updatedParent.name,
+        phone: updatedParent.phone,
+        password: updatedParent.password,
+        email: updatedParent.email,
+        address: {
+          name: updatedParent.address.name,
+          state: updatedParent.address.state,
+          district: updatedParent.address.district,
+          pincode: updatedParent.address.pincode,
+        },
+        school_id: updatedParent.school_id,
+      }));
+
+      await axios.put(`${baseURL}/update-parent/${updatedParent._id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      alert("Parent Updated Successfully");
+      window.location.reload();
+    } catch (error) {
+      console.error('Error updating parent:', error);
+    }
+  };
 
   // Handle Delete Action
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${baseURL}/delete-parent/${id}`);
-      // After deletion, update the state to remove the deleted item
-      setData(data.filter((parent) => parent._id !== id));
+      alert("Parent Deleted Successfully");
+      window.location.reload();
     } catch (error) {
       console.error('Error deleting parent:', error);
     }
   };
 
-  // Handle Edit Action (Add a placeholder function for now)
-  const handleEdit = (id) => {
-    console.log(`Editing parent with ID: ${id}`);
-    // Implement edit functionality here (e.g., open a modal or navigate to an edit page)
+  // Handle Edit Action
+  const handleEdit = (parent) => {
+    setEditingParent(parent); // Set the current parent data for editing
+    // setIsEditMode(true); // Open the modal in edit mode
+  };
+
+  const handleCloseModal = () => {
+    setIsEditMode(false);
+    setEditingParent(null);
   };
 
   if (loading) {
@@ -81,6 +122,16 @@ const ParentsManagement = () => {
     <div>
       <ParentsHeader totalParents={data.length} addParent={addParent} />
       <ParentTable data={data} handleEdit={handleEdit} handleDelete={handleDelete} />
+
+      {/* Modal for Adding/Editing Parent */}
+      {isEditMode && (
+        <AddParentModal
+          isOpen={isEditMode}
+          onClose={handleCloseModal}
+          onSubmit={editParent} // Submit the updated parent data
+          initialData={editingParent} // Pass the data of the parent to be edited
+        />
+      )}
     </div>
   );
 };

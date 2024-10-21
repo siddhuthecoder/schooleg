@@ -53,7 +53,7 @@ function App() {
       <Route path="/class" element={<Class />} />
       <Route path="/notice" element={<Notice />} />
       <Route path="/reminder" element={<Reminder />} />
-      <Route path="/student/:class" element={<Student />} />
+      <Route path="/student" element={<Student />} />
       <Route path="/teacher" element={<Teacher />} />
       <Route path="/parent" element={<Parents />} />
       <Route path="/driver" element={<Driver />} />
@@ -63,7 +63,7 @@ function App() {
       <Route path="/time-table/:class" element={<TimeTable />} />
       <Route path="/activity" element={<Activity />} />
       <Route path="/leave" element={<Leave />} />
-      <Route path="/holiday" element={<Holiday />} />
+      <Route path="/holidays" element={<Holiday />} />
       <Route path="/complain" element={<Complain />} />
       <Route path="/fee" element={<Fee />} />
       <Route path="/fee-completion" element={<FeeCompletion />} />

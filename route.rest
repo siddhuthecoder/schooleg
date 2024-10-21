@@ -17,3 +17,9 @@ Content-Type: application/json
   "phone": "9934906211",
   "password": "123456"
 }
+
+###
+GET https://schooleg.com/Schooleg/parents-by-school-phone?phone=1234567890&school_id=66fac9603e512ca16feb7a6d
+
+
+###

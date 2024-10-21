@@ -45,16 +45,16 @@ const Login = () => {
       console.log('Login successful:', response.data);
       dispatch(signInSuccess(response.data));
       if(role==="Teacher"){
-        navigate("/teacher")
+        navigate("/student")
       }
       else if (role ==="School"){
-        navigate("/class")
+        navigate("/student")
       }
       else if (role === "Parent"){
-        navigate("/parent")
+        navigate("/student")
       }
       else if (role ===" Driver"){
-        navigate("/driver")
+        navigate("/student")
       }
     } catch (err) {
       console.error('Login failed:', err);
