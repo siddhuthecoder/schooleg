@@ -43,6 +43,7 @@ import { useSelector } from 'react-redux';
 function App() {
   const user = useSelector((state) => state.auth.user);
   const role = localStorage.getItem("role");
+  console.log(user)
 
   console.log("Role:", role);
   console.log("User:", user);
